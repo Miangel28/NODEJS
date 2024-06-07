@@ -4,6 +4,12 @@ const send = require('send')
 const app = express() // Inicializamos la variable de la libreria libreria 
 const port = 3000// definimos el puerto a usar
 
+const mongoose = require("mongoose")
+mongoose.connect("")
+app.use(express.urlencoded({extended : true}))
+app.use(express.json())
+const UserRoutes = require("./routes/UserRoutes")
+app.use("/", UserRoutes)
 
 //Creando el servicio web
 //Funcionalidad de nuestra APPI
