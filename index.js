@@ -5,7 +5,12 @@ const app = express() // Inicializamos la variable de la libreria libreria
 const port = 3000// definimos el puerto a usar
 
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://Miangel28:wkE0KP1Z9k3Ff9m4@cluster0.iyl4qvv.mongodb.net/")
+
+
+require("dotenv").config()
+const DB_CONNECTION= processes.env.DB_CONNECTION ||""
+mongoose.connect("")
+
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
 const UserRoutes = require("./routes/UserRoutes")
