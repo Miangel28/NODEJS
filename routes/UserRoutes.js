@@ -6,5 +6,10 @@ const controller = new UsuarioController();//creamos una instancia
 // creamos servicios web
 app.get('/Usuario', controller.getUsuarios)
 app.post('/Usuario', controller.createUsuario)
+app.get("/Usuario/:id", controller.getUsuarioById)
+app.put("/Usuario/:id", controller.updateUsuario)
+app.delete("/Usuario/:id", controller.deleteUsuario)
+
+
 
 module.exports = app
