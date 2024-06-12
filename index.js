@@ -8,8 +8,8 @@ const mongoose = require("mongoose")
 
 
 require("dotenv").config()
-const DB_CONNECTION= processes.env.DB_CONNECTION ||""
-mongoose.connect("")
+const DB_CONNECTION= process.env.DB_CONNECTION ||""
+mongoose.connect(DB_CONNECTION)
 
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
