@@ -9,6 +9,7 @@ app.post('/Usuario', controller.createUsuario)
 app.get("/Usuario/:id", controller.getUsuarioById)
 app.put("/Usuario/:id", controller.updateUsuario)
 app.delete("/Usuario/:id", controller.deleteUsuario)
+app.post("/Login", controller.Login)
 
 
 

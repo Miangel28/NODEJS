@@ -1,6 +1,6 @@
 const UserSchema = require("../models/Usuario")
 const bcrypt = require("bcrypt") 
-
+const jwt = require('jsonwebtoken')
 class UsuarioController {
     
     async getUsuarios ( req,res) {
@@ -35,6 +35,7 @@ class UsuarioController {
     }
 
     async updateUsuario(req,res){
+        const hasheadPassword = await bcrypt.hash(req.body.password, 10)
 
         var id = req.params.id;
 
@@ -42,7 +43,7 @@ class UsuarioController {
             nombre:req.body.nombre,
             apellidos: req.body.apellidos,
             correo: req.body.correo,
-            password: req.body.password,
+            password: hasheadPassword,
 
         }
 
@@ -66,6 +67,35 @@ class UsuarioController {
         res.json({"status": "sucess", "message": "usuario borrado correctamente"})
 
     }
+    async Login(req,res){
+        var correo = req.body.correo;
+        var password = req.body.password
+
+
+        var usuario = await UserSchema.findOne({correo})
+        if (usuario){
+            var verificacionClave = await bcrypt.compare(password, usuario.password)
+            if (verificacionClave) {
+                
+                usuario.password = null 
+                const token = jwt.sign({usuario}, "secret", { expiresIn: "1h"})
+
+
+                res.send({"satus": "Succes",
+                    "message" : "Bienvenida " + usuario.nombre + " " + usuario.apellidos,
+                    "user_id": usuario._id, 
+                    "token": token,
+                })
+            }else {
+                res.send({"status" : "Error", "massage" : "Los datos ingresados  son invalidos"})
+            }
+        }else {
+            res.send({"status": "Error" , "message": " El correo ingresado no existe"})
+        }
+    }
+
 }
+
+
 
 module.exports = UsuarioController
