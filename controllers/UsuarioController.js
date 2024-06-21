@@ -35,9 +35,11 @@ class UsuarioController {
     }
 
     async updateUsuario(req,res){
-        const hasheadPassword = await bcrypt.hash(req.body.password, 10)
 
         var id = req.params.id;
+        const hasheadPassword = await bcrypt.hash(req.body.password, 10)
+
+        
 
         var updateUser = {
             nombre:req.body.nombre,
@@ -87,7 +89,7 @@ class UsuarioController {
                     "token": token,
                 })
             }else {
-                res.send({"status" : "Error", "massage" : "Los datos ingresados  son invalidos"})
+                res.status(401).send({"status" : "Error", "massage" : "Los datos ingresados  son invalidos"})
             }
         }else {
             res.send({"status": "Error" , "message": " El correo ingresado no existe"})

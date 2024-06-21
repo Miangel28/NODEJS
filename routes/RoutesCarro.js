@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express()
-const CarroControllers = require("../Controllers/CarroControllers")
+const CarroControllers = require("../controllers/CarroControllers")
 const Controller = new CarroControllers()
 
 
